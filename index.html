@@ -386,11 +386,93 @@ ConditionLabel
                     </section>
 
                     <section>
-                        <h2>Gestion des aléas</h2>
+                        <h2>Le projet</h2>
+												<ul>
+                            <li>Architecture en cores</li>
+                            <li>Entièrement en ligne de commande</li>
+                        </ul>
                     </section>
 
                     <section>
-                        <h2>Intégration sur le FPGA</h2>
+                        <h2>Gestion des aléas</h2>
+												<ul>
+                            <li >Lorsque 2 instructions consécutives sont dépendantes :
+
+												</ul>
+		                        <pre><code data-trim class="asm">
+AFC R0 1
+COP R0 R1
+														 </code></pre>
+
+														<ul>
+                            <li>Controle : sur les pipeline 2 et 3</li>
+                            <li>Action : injection de <code>NOP</code> sur le premier pipeline</li>
+                        </ul>
+                    </section>
+
+                    <section>
+                        <h2>Tests fonctionnels</h2>
+												<p>Micro-processeur sans la gestion d'aléas</p>
+												<pre><code data-trim class="vhdl">
+signal words : word_list := (
+		0 => x"06001000", -- AFC R0 0x10
+		1 => x"00000000", -- NOP
+		2 => x"00000000", -- NOP
+		3 => x"08000000", -- STORE R0 @0
+		4 => x"06010100", -- APC R1 0x01
+		5 => x"00000000", -- NOP
+		6 => x"00000000", -- NOP
+		7 => x"01000001", -- ADD R0 R0 R1
+		8 => x"09000000", -- PRI R0
+		others => x"00000000");
+												</code></pre>
+                    </section>
+
+                    <section>
+                        <h2>Tests fonctionnels</h2>
+
+
+												<img src="images/boubi.png">
+                    </section>
+
+                    <section>
+                        <h2>Tests temporels</h2>
+
+												<img src="images/bouba.png">
+<pre><code>Timing Details:
+---------------
+All values displayed in nanoseconds (ns)
+
+=========================================================================
+Timing constraint: Default period analysis for Clock 'CLK'
+  Clock period: 8.759ns (frequency: 114.174MHz)
+  Total number of paths / destination ports: 130282 / 3470
+-------------------------------------------------------------------------
+Delay:               8.759ns (Levels of Logic = 9)
+  Source:            exmem/OP_out_6 (FF)
+  Destination:       ram1/sortie_7 (FF)
+  Source Clock:      CLK rising
+  Destination Clock: CLK rising
+
+  Data Path: exmem/OP_out_6 to ram1/sortie_7
+                                Gate     Net
+    Cell:in->out      fanout   Delay   Delay  Logical Name (Net Name)
+    ----------------------------------------  ------------
+     FD:C->Q               2   0.447   0.864  exmem/OP_out_6 (exmem/OP_out_6)
+     LUT4:I0->O            3   0.203   0.651  out_exmem_OP[7]_GND_4_o_equal_22_o<7>11 (out_exmem_OP[7]_GND_4_o_equal_22_o<7>1)
+     LUT5:I4->O          280   0.205   2.070  out_exmem_OP[7]_GND_4_o_equal_22_o<7>1 (out_exmem_OP[7]_GND_4_o_equal_22_o)
+     LUT3:I2->O          512   0.205   2.195  Mmux_mux_ram_in11 (mux_ram_in<0>)
+     LUT6:I4->O            1   0.203   0.000  ram1/Mmux_addr[8]_X_12_o_wide_mux_1_OUT_113 (ram1/Mmux_addr[8]_X_12_o_wide_mux_1_OUT_113)
+     MUXF7:I1->O           1   0.140   0.000  ram1/Mmux_addr[8]_X_12_o_wide_mux_1_OUT_10_f7_1 (ram1/Mmux_addr[8]_X_12_o_wide_mux_1_OUT_10_f72)
+     MUXF8:I1->O           1   0.152   0.827  ram1/Mmux_addr[8]_X_12_o_wide_mux_1_OUT_9_f8_0 (ram1/Mmux_addr[8]_X_12_o_wide_mux_1_OUT_9_f81)
+     LUT6:I2->O            1   0.203   0.000  ram1/Mmux_addr[8]_X_12_o_wide_mux_1_OUT_4 (ram1/Mmux_addr[8]_X_12_o_wide_mux_1_OUT_4)
+     MUXF7:I1->O           1   0.140   0.000  ram1/Mmux_addr[8]_X_12_o_wide_mux_1_OUT_3_f7 (ram1/Mmux_addr[8]_X_12_o_wide_mux_1_OUT_3_f7)
+     MUXF8:I1->O           1   0.152   0.000  ram1/Mmux_addr[8]_X_12_o_wide_mux_1_OUT_2_f8 (ram1/addr[8]_X_12_o_wide_mux_1_OUT<0>)
+     FDE:D                     0.102          ram1/sortie_0
+    ----------------------------------------
+    Total                      8.759ns (2.152ns logic, 6.607ns route)
+                                       (24.6% logic, 75.4% route)
+		</code></pre>
                     </section>
 
 				</section>
