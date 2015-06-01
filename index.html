@@ -401,7 +401,7 @@ ConditionLabel
 												</ul>
 		                        <pre><code data-trim class="asm">
 AFC R0 1
-COP R0 R1
+COP R1 R0
 														 </code></pre>
 
 														<ul>
@@ -426,6 +426,7 @@ signal words : word_list := (
 		8 => x"09000000", -- PRI R0
 		others => x"00000000");
 												</code></pre>
+												<p>Ajout de l'instruction <code>PRI</code></p>
                     </section>
 
                     <section>
@@ -483,13 +484,13 @@ Delay:               8.759ns (Levels of Logic = 9)
 					   <h1>Ouverture</h1>
 				    </section>
 
-<!--                     <section>
+                   <section>
                         <h2>Conclusion</h2>
                         <p>
                             Compilateur bien plus avancé que le microprocesseur.
                             Microprocesseur : terminer les aléas, faire les jumps, le rendre compatible avec les nouvelles instructions
                         </p>
-                    </section> -->
+                    </section>
 
                     <section>
                         <h2>Compilateur JIT</h2>
