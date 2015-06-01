@@ -162,6 +162,15 @@ jmp -4
 							Utilisation des règles uniquement, <b>pas de liste !</b><br/>
 						</p>
 
+                        <pre class="fragment"><code data-trim class="c">
+jmf ConditionLabel
+    CorpsIf
+jmp IfLabel
+ConditionLabel
+    CorpsElse
+IfLabel
+                        </code></pre>
+
 							<pre class="fragment"><code data-trim class="c">
 If : tIF tPARENT_OPEN Condition tPARENT_CLOSE BlocOp
 Else : tELSE BlocOp
@@ -176,6 +185,15 @@ Condition : ExprArith ComparaisonOperator ExprArith
                         <p>
                             Utilisation des règles uniquement, <b>pas de liste !</b><br/>
                         </p>
+
+                        <pre><code data-trim class="c">
+jmf ConditionLabel
+    CorpsIf
+jmp IfLabel
+ConditionLabel
+    CorpsElse
+IfLabel
+                        </code></pre>
 
                             <pre><code data-trim class="c">
 If : tIF tPARENT_OPEN Condition tPARENT_CLOSE BlocOp
@@ -195,6 +213,15 @@ Condition : ExprArith ComparaisonOperator ExprArith
                         <p>
                             Utilisation des règles uniquement, <b>pas de liste !</b><br/>
                         </p>
+
+                        <pre><code data-trim class="c">
+jmf ConditionLabel
+    CorpsIf
+jmp IfLabel
+ConditionLabel
+    CorpsElse
+IfLabel
+                        </code></pre>
                             <pre><code data-trim class="c">
 If : tIF tPARENT_OPEN Condition tPARENT_CLOSE BlocOp
    {
@@ -220,6 +247,15 @@ Condition : ExprArith ComparaisonOperator ExprArith
                         </p>
 
                         <pre><code data-trim class="c">
+jmf ConditionLabel
+    CorpsIf
+jmp IfLabel
+ConditionLabel
+    CorpsElse
+IfLabel
+                        </code></pre>
+
+                        <pre><code data-trim class="c">
 If : tIF tPARENT_OPEN Condition tPARENT_CLOSE BlocOp
    {
         $$ = get_label();
@@ -236,14 +272,6 @@ Condition : ExprArith ComparaisonOperator ExprArith
           }
                         </code></pre>
 
-                        <pre class="fragment"><code data-trim class="c">
-jmf ConditionLabel
-    CorpsIf
-jmp IfLabel
-ConditionLabel
-    CorpsElse
-IfLabel
-                        </code></pre>
                     </section>
 
 					<section>
