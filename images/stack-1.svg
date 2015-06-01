@@ -264,6 +264,37 @@
      sodipodi:linespacing="125%"><tspan
        sodipodi:role="line"
        id="tspan5657"
-       x="507.09659"
+       x="503.05597"
        y="171.00409">STOP</tspan></text>
+  <text
+     xml:space="preserve"
+     style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+     x="507.09659"
+     y="271.00409"
+     id="text56561"
+     sodipodi:linespacing="125%"><tspan
+       sodipodi:role="line"
+       id="tspan5657"
+       x="503.05597"
+       y="271.00409">PUSH BP</tspan></text>
+  <text
+     xml:space="preserve"
+     style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+     x="507.09659"
+     y="321.00409"
+     sodipodi:linespacing="125%"><tspan
+       sodipodi:role="line"
+       id="tspan5657"
+       x="503.05597"
+       y="321.00409">COP BP, SP</tspan></text>
+  <text
+     xml:space="preserve"
+     style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+     x="507.09659"
+     y="371.00409"
+     sodipodi:linespacing="125%"><tspan
+       sodipodi:role="line"
+       id="tspan5657"
+       x="503.05597"
+       y="371.00409">ADD SP, 1</tspan></text>
 </svg>

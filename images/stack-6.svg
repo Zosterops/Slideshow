@@ -277,17 +277,7 @@
        x="281.24539"
        y="282.47137"
        id="tspan4765" /></text>
-  <text
-     xml:space="preserve"
-     style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
-     x="500.53058"
-     y="168.9838"
-     id="text6047"
-     sodipodi:linespacing="125%"><tspan
-       sodipodi:role="line"
-       id="tspan6049"
-       x="500.53058"
-       y="168.9838">...</tspan></text>
+
   <text
      xml:space="preserve"
      style="font-size:24px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
@@ -299,4 +289,60 @@
        id="tspan6485"
        x="154.04825"
        y="207.87466">1</tspan></text>
+
+  <text
+     xml:space="preserve"
+     style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+     x="504.02753"
+     y="218.40221"
+     id="text4799-5"
+     sodipodi:linespacing="125%"><tspan
+       sodipodi:role="line"
+       id="tspan4801-7"
+       x="503.02753"
+       y="218.40221">PUSH BP</tspan></text>
+  <text
+     xml:space="preserve"
+     style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+     x="504.02753"
+     y="260.40221"
+     id="text4799-5"
+     sodipodi:linespacing="125%"><tspan
+       sodipodi:role="line"
+       id="tspan4801-7"
+       x="503.02753"
+       y="260.40221">COP BP, SP</tspan></text>
+  <text
+     xml:space="preserve"
+     style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+     x="504.02753"
+     y="310.40221"
+     id="text4799-5"
+     sodipodi:linespacing="125%"><tspan
+       sodipodi:role="line"
+       id="tspan4801-7"
+       x="503.02753"
+       y="310.40221">ADD SP, 1</tspan></text>
+  <text
+     xml:space="preserve"
+     style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+     x="504.02753"
+     y="360.40221"
+     id="text4799-5"
+     sodipodi:linespacing="125%"><tspan
+       sodipodi:role="line"
+       id="tspan4801-7"
+       x="503.02753"
+       y="360.40221">LEAVE</tspan></text>
+  <text
+     xml:space="preserve"
+     style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+     x="504.02753"
+     y="410.40221"
+     id="text4799-5"
+     sodipodi:linespacing="125%"><tspan
+       sodipodi:role="line"
+       id="tspan4801-7"
+       x="503.02753"
+       y="410.40221">RET</tspan></text>
 </svg>

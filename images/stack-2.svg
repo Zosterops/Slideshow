@@ -269,12 +269,56 @@
   <text
      xml:space="preserve"
      style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
-     x="499.02753"
+     x="503.02753"
      y="169.40221"
      id="text4799-5"
      sodipodi:linespacing="125%"><tspan
        sodipodi:role="line"
        id="tspan4801-7"
-       x="499.02753"
+       x="503.02753"
        y="169.40221">COP BP, SP</tspan></text>
+  <text
+     xml:space="preserve"
+     style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+     x="503.02753"
+     y="219.40221"
+     id="text4799-5"
+     sodipodi:linespacing="125%"><tspan
+       sodipodi:role="line"
+       id="tspan4801-7"
+       x="503.02753"
+       y="219.40221">ADD SP, 1</tspan></text>
+  <text
+     xml:space="preserve"
+     style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+     x="503.02753"
+     y="269.40221"
+     id="text4799-5"
+     sodipodi:linespacing="125%"><tspan
+       sodipodi:role="line"
+       id="tspan4801-7"
+       x="503.02753"
+       y="269.40221">PUSH 1</tspan></text>
+  <text
+     xml:space="preserve"
+     style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+     x="503.02753"
+     y="319.40221"
+     id="text4799-5"
+     sodipodi:linespacing="125%"><tspan
+       sodipodi:role="line"
+       id="tspan4801-7"
+       x="503.02753"
+       y="319.40221">CALL YOUPI</tspan></text>
+  <text
+     xml:space="preserve"
+     style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+     x="503.02753"
+     y="419.40221"
+     id="text4799-5"
+     sodipodi:linespacing="125%"><tspan
+       sodipodi:role="line"
+       id="tspan4801-7"
+       x="503.02753"
+       y="419.40221">PUSH BP</tspan></text>
 </svg>

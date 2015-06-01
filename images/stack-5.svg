@@ -288,4 +288,48 @@
        id="tspan6049"
        x="500.53058"
        y="168.9838">CALL YOUPI</tspan></text>
+  <text
+     xml:space="preserve"
+     style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+     x="504.02753"
+     y="268.40221"
+     id="text4799-5"
+     sodipodi:linespacing="125%"><tspan
+       sodipodi:role="line"
+       id="tspan4801-7"
+       x="503.02753"
+       y="268.40221">PUSH BP</tspan></text>
+  <text
+     xml:space="preserve"
+     style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+     x="504.02753"
+     y="310.40221"
+     id="text4799-5"
+     sodipodi:linespacing="125%"><tspan
+       sodipodi:role="line"
+       id="tspan4801-7"
+       x="503.02753"
+       y="310.40221">COP BP, SP</tspan></text>
+  <text
+     xml:space="preserve"
+     style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+     x="504.02753"
+     y="360.40221"
+     id="text4799-5"
+     sodipodi:linespacing="125%"><tspan
+       sodipodi:role="line"
+       id="tspan4801-7"
+       x="503.02753"
+       y="360.40221">ADD SP, 1</tspan></text>
+  <text
+     xml:space="preserve"
+     style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+     x="504.02753"
+     y="410.40221"
+     id="text4799-5"
+     sodipodi:linespacing="125%"><tspan
+       sodipodi:role="line"
+       id="tspan4801-7"
+       x="503.02753"
+       y="410.40221">LEAVE</tspan></text>
 </svg>
