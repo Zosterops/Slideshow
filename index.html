@@ -107,7 +107,7 @@ int main(int argc, char const *argv[])
 }
 					</code></pre>
 
-						<pre class="fragment"><code data-trim class="asm">
+						<pre class="fragment"><code data-trim class="x86asm">
 afc [$1], 10
 afc [$2], 10
 add [$1], [$1], [$2]
@@ -138,7 +138,7 @@ instr_emit_pri(1);
 instr_emit_jmp(label_ref);
 						</code></pre>
 
-						<pre class="fragment"><code data-trim class="asm">
+						<pre class="fragment"><code data-trim class="x86asm">
 main:
 	afc [$1], 10
 	afc [$2], 10
@@ -147,7 +147,7 @@ main:
 	jmp main
 						</code></pre>
 
-						<pre class="fragment"><code data-trim class="asm">
+						<pre class="fragment"><code data-trim class="x86asm">
 afc [$1], 10
 afc [$2], 10
 add [$1], [$1], [$2]
@@ -163,48 +163,100 @@ jmp -4
 							Utilisation des règles uniquement, <b>pas de liste !</b><br/>
 						</p>
 
-							<pre class="fragment"><code data-trim class="bison">
+							<pre class="fragment"><code data-trim class="c">
 If : tIF tPARENT_OPEN Condition tPARENT_CLOSE BlocOp
 Else : tELSE BlocOp
 IfElse : If
        | If Else
 Condition : ExprArith ComparaisonOperator ExprArith
-          | ExprArith ComparaisonOperator tEQUAL ExprArith
-          | ExprArith tDIFFERENT ExprArith
 							</code></pre>
-
-						<div>
-							<ul>
-								<li class="fragment"><i>Condition</i> émet un <b>jmf</b> vers un label et retourne la référence</li>
-								<li class="fragment"><i>If</i> émet un <b>jmp</b> vers un label et retourne la référence</li>
-								<li class="fragment"><i>If</i> émet le label retourné par <i>Condition</i></li>
-								<li class="fragment"><i>IfElse</i> émet le label retourné par <i>If</i></li>
-							</ul>
-						</div>
 					</section>
+
+                    <section>
+                        <h2>Conditions et boucles</h2>
+                        <p>
+                            Utilisation des règles uniquement, <b>pas de liste !</b><br/>
+                        </p>
+
+                            <pre><code data-trim class="c">
+If : tIF tPARENT_OPEN Condition tPARENT_CLOSE BlocOp
+Else : tELSE BlocOp
+IfElse : If
+       | If Else
+Condition : ExprArith ComparaisonOperator ExprArith
+          {
+             $$ = get_label();
+             instr_emit_jmf(x, $$);
+          }
+                            </code></pre>
+                    </section>
+
+                    <section>
+                        <h2>Conditions et boucles</h2>
+                        <p>
+                            Utilisation des règles uniquement, <b>pas de liste !</b><br/>
+                        </p>
+                            <pre><code data-trim class="c">
+If : tIF tPARENT_OPEN Condition tPARENT_CLOSE BlocOp
+   {
+        $$ = get_label();
+        instr_emit_jmp($$);
+        instr_emit_label($3);
+   }
+Else : tELSE BlocOp
+IfElse : If
+       | If Else
+Condition : ExprArith ComparaisonOperator ExprArith
+          {
+             $$ = get_label();
+             instr_emit_jmf(x, $$);
+          }
+                            </code></pre>
+                    </section>
+
+                    <section>
+                        <h2>Conditions et boucles</h2>
+                        <p>
+                            Utilisation des règles uniquement, <b>pas de liste !</b><br/>
+                        </p>
+
+                        <pre><code data-trim class="c">
+If : tIF tPARENT_OPEN Condition tPARENT_CLOSE BlocOp
+   {
+        $$ = get_label();
+        instr_emit_jmp($$);
+        instr_emit_label($3);
+   }
+Else : tELSE BlocOp
+IfElse : If { instr_emit_label($1); }
+       | If Else { instr_emit_label($1); }
+Condition : ExprArith ComparaisonOperator ExprArith
+          {
+             $$ = get_label();
+             instr_emit_jmf(x, $$);
+          }
+                        </code></pre>
+
+                        <pre class="fragment"><code data-trim class="c">
+jmf ConditionLabel
+    CorpsIf
+jmp IfLabel
+ConditionLabel
+    CorpsElse
+IfLabel
+                        </code></pre>
+                    </section>
 
 					<section>
 						<h2>Conditions et boucles</h2>
-						<pre><code data-trim class="bison">
-jmf ConditionLabel
-	CorpsIf
-jmp IfLabel
-ConditionLabel
-	CorpsElse
-IfLabel
-						</code></pre>
-
-						<div class="fragment">
-							<p>Même fonctionnement pour les boucles</p>
-						<pre><code data-trim class="bison">
+						<p>Même fonctionnement pour les boucles</p>
+						<pre><code data-trim class="c">
 BeginLabel
 jmf ConditionLabel
 	CorpsBoucle
 	jmp BeginLabel
 ConditionLabel
 						</code></pre>
-						</div>
-
 					</section>
 
 				</section>
