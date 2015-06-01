@@ -219,19 +219,28 @@ ConditionLabel
 					<section>
 						<h2>Fonctions</h2>
 						<ul>
-							<li>Table de symboles de fonctions</li>
-							<li>Un symbole de fonction contient :
+							<li class="fragment">Table de symboles de fonctions</li>
+							<li class="fragment">Un symbole de fonction contient :
 								<ul>
 									<li>Une table de symboles de paramètres</li>
 									<li>Une table de symboles de variables locales</li>
+									<li>Nom de la fonction</li>
 								</ul>
 							</li>
+							<li class="fragment">Ajout de trois registres :
+								<ul>
+									<li><b>sp</b> : stack pointer</li>
+									<li><b>bp</b> : base pointer</li>
+									<li><b>rt</b> : retour de la fonction</li>
+								</ul>
+							</li>
+							<li class="fragment">Variables locales adressées par rapport à <b>bp</b></li>
 						</ul>
 					</section>
 
 					<section data-transition="none">
 						<h2>Stack frame</h2>
-						<img src="images/stack-1.svg">
+						<img class="fragment" src="images/stack-1.svg">
 					</section>
 
 					<section data-transition="none">
