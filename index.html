@@ -43,6 +43,7 @@
             box-shadow: none;
             vertical-align: middle;
         }
+
 		</style>
 
 		<!--[if lt IE 9]>
@@ -56,7 +57,7 @@
 
 			<!-- Any section element inside of this container is displayed as a slide -->
 			<div class="slides">
-				<section>
+				<section style="text-align: left;">
 					<h1>Projet système info</h1>
 					<h3></h3>
 					<p>
@@ -81,69 +82,217 @@
 					<h1>Compilateur</h1>
 				</section>
 
-				<section data-transition="none">
-					<h2>Stack frame</h2>
-					<img class="fragment" src="images/stack-1.svg">
+				<section>
+
+					<section>
+						<h2>Instruction manager</h2>
+						<p class="fragment">
+							Petite librairie pour gérer les instructions émises.<br/>
+							Les instructions sont placées dans une liste chainée.
+						</p>
+					</section>
+
+					<section>
+						<h2>Instruction manager</h2>
+					<pre><code data-trim class="c">
+int main(int argc, char const *argv[])
+{
+	instr_manager_init();
+	instr_emit_afc(1, 10);
+	instr_emit_afc(2, 10);
+	instr_emit_add(1, 1, 2);
+	instr_emit_pri(1);
+	instr_manager_print_textual();
+	return 0;
+}
+					</code></pre>
+
+						<pre class="fragment"><code data-trim class="asm">
+afc [$1], 10
+afc [$2], 10
+add [$1], [$1], [$2]
+pri [$1]
+						</code></pre>
+
+					</section>
+
 				</section>
 
-				<section data-transition="none">
-					<h2>Stack frame</h2>
-					<img src="images/stack-2.svg">
+				<section>
+					
+					<section>
+						<h2>Labels, conditions et boucles</h2>
+					</section>
+
+					<section>
+						<h2>Labels</h2>
+						<p class="fragment">Instruction &laquo;virtuelle&raquo;. Pas compilé, pas executé.</p>
+
+						<pre class="fragment"><code data-trim class="c">
+int label_ref = label_add("main");
+instr_emit_label(label_ref);
+instr_emit_afc(1, 10);
+instr_emit_afc(2, 10);
+instr_emit_add(1, 1, 2);
+instr_emit_pri(1);
+instr_emit_jmp(label_ref);
+						</code></pre>
+
+						<pre class="fragment"><code data-trim class="asm">
+main:
+	afc [$1], 10
+	afc [$2], 10
+	add [$1], [$1], [$2]
+	pri [$1]
+	jmp main
+						</code></pre>
+
+						<pre class="fragment"><code data-trim class="asm">
+afc [$1], 10
+afc [$2], 10
+add [$1], [$1], [$2]
+pri [$1]
+jmp -4
+						</code></pre>
+
+					</section>
+
+					<section>
+						<h2>Conditions et boucles</h2>
+						<p class="fragment">
+							Utilisation des règles uniquement, <b>pas de liste !</b><br/>
+						</p>
+
+							<pre class="fragment"><code data-trim class="bison">
+If : tIF tPARENT_OPEN Condition tPARENT_CLOSE BlocOp
+Else : tELSE BlocOp
+IfElse : If
+       | If Else
+Condition : ExprArith ComparaisonOperator ExprArith
+          | ExprArith ComparaisonOperator tEQUAL ExprArith
+          | ExprArith tDIFFERENT ExprArith
+							</code></pre>
+
+						<div>
+							<ul>
+								<li class="fragment"><i>Condition</i> émet un <b>jmf</b> vers un label et retourne la référence</li>
+								<li class="fragment"><i>If</i> émet un <b>jmp</b> vers un label et retourne la référence</li>
+								<li class="fragment"><i>If</i> émet le label retourné par <i>Condition</i></li>
+								<li class="fragment"><i>IfElse</i> émet le label retourné par <i>If</i></li>
+							</ul>
+						</div>
+					</section>
+
+					<section>
+						<h2>Conditions et boucles</h2>
+						<pre><code data-trim class="bison">
+jmf ConditionLabel
+	CorpsIf
+ConditionLabel
+jmp IfLabel
+	CorpsElse
+IfLabel
+						</code></pre>
+
+						<div class="fragment">
+							<p>Même fonctionnement pour les boucles</p>
+						<pre><code data-trim class="bison">
+BeginLabel
+jmf ConditionLabel
+	CorpsBoucle
+	jmp BeginLabel
+ConditionLabel
+						</code></pre>
+						</div>
+
+					</section>
+
 				</section>
 
-				<section data-transition="none">
-					<h2>Stack frame</h2>
-					<img src="images/stack-3.svg">
-				</section>
 
-				<section data-transition="none">
-					<h2>Stack frame</h2>
-					<img src="images/stack-4.svg">
-				</section>
+				<section>
 
-				<section data-transition="none">
-					<h2>Stack frame</h2>
-					<img src="images/stack-5.svg">
-				</section>
+					<section>
+						<h2>Stack frame et fonctions</h2>
+					</section>
 
-				<section data-transition="none">
-					<h2>Stack frame</h2>
-					<img src="images/stack-6.svg">
-				</section>
+					<section>
+						<h2>Fonctions</h2>
+						<ul>
+							<li>Table de symboles de fonctions</li>
+							<li>Un symbole de fonction contient :
+								<ul>
+									<li>Une table des symboles de paramètres</li>
+									<li>Une table des symboles de variables locales</li>
+								</ul>
+							</li>
+						</ul>
+					</section>
 
-				<section data-transition="none">
-					<h2>Stack frame</h2>
-					<img src="images/stack-7.svg">
-				</section>
+					<section data-transition="none">
+						<h2>Stack frame</h2>
+						<img src="images/stack-1.svg">
+					</section>
 
-				<section data-transition="none">
-					<h2>Stack frame</h2>
-					<img src="images/stack-8.svg">
-				</section>
+					<section data-transition="none">
+						<h2>Stack frame</h2>
+						<img src="images/stack-2.svg">
+					</section>
 
-				<section data-transition="none">
-					<h2>Stack frame</h2>
-					<img src="images/stack-9.svg">
-				</section>
+					<section data-transition="none">
+						<h2>Stack frame</h2>
+						<img src="images/stack-3.svg">
+					</section>
 
-				<section data-transition="none">
-					<h2>Stack frame</h2>
-					<img src="images/stack-10.svg">
-				</section>
+					<section data-transition="none">
+						<h2>Stack frame</h2>
+						<img src="images/stack-4.svg">
+					</section>
 
-				<section data-transition="none">
-					<h2>Stack frame</h2>
-					<img src="images/stack-11.svg">
-				</section>
+					<section data-transition="none">
+						<h2>Stack frame</h2>
+						<img src="images/stack-5.svg">
+					</section>
 
-				<section data-transition="none">
-					<h2>Stack frame</h2>
-					<img src="images/stack-12.svg">
-				</section>
+					<section data-transition="none">
+						<h2>Stack frame</h2>
+						<img src="images/stack-6.svg">
+					</section>
 
-				<section data-transition="none">
-					<h2>Stack frame</h2>
-					<img src="images/stack-13.svg">
+					<section data-transition="none">
+						<h2>Stack frame</h2>
+						<img src="images/stack-7.svg">
+					</section>
+
+					<section data-transition="none">
+						<h2>Stack frame</h2>
+						<img src="images/stack-8.svg">
+					</section>
+
+					<section data-transition="none">
+						<h2>Stack frame</h2>
+						<img src="images/stack-9.svg">
+					</section>
+
+					<section data-transition="none">
+						<h2>Stack frame</h2>
+						<img src="images/stack-10.svg">
+					</section>
+
+					<section data-transition="none">
+						<h2>Stack frame</h2>
+						<img src="images/stack-11.svg">
+					</section>
+
+					<section data-transition="none">
+						<h2>Stack frame</h2>
+						<img src="images/stack-12.svg">
+					</section>
+
+					<section data-transition="none">
+						<h2>Stack frame</h2>
+						<img src="images/stack-13.svg">
+					</section>
 				</section>
 
 				<!-- Example of nested vertical slides -->
