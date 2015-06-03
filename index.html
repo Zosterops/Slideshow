@@ -208,17 +208,16 @@ def set_dutycycle(self, dutycyle):
 
 						<div class="fragment">
 						<p style="text-align:left;">Drone :</p>
-						<pre><code data-trim>
+						<pre><code class="nohighlight" data-trim>
 raspivid -t 0 -h 720 -w 1080 -fps 30 -b 2000000 -o - |
-gst-launch-1.0 -v fdsrc fd=0 !h264parse ! rtph264pay !
-udpsink host=192.168.43.93 port=5004
-						</code></pre>
-						</div>
+gst-launch-1.0 -v fdsrc fd=0 ! h264parse ! rtph264pay !
+udpsink host=192.168.43.93 port=5004</code></pre>
 
 						<div class="fragment">
 						<p style="text-align:left;">Android :</p>
-						<pre><code data-trim>
-udpsrc port=5004 caps="application/x-rtp, media=video, clock-rate=90000, encoding-name=H264" !
+						<pre><code class="nohighlight" data-trim>
+udpsrc port=5004 caps="application/x-rtp, media=video,
+	clock-rate=90000, encoding-name=H264" !
 rtph264depay ! avdec_h264 ! autovideosink
 						</code></pre>
 						</div>
