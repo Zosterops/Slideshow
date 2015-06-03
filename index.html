@@ -79,7 +79,7 @@
 					</section>
 					<section>
 						<h1>Immersion totale</h1>
-						
+
 						<p>Donner l'impression à un utilisateur d'être dans un environnement distant</p>
 					</section>
 					<section>
@@ -115,7 +115,7 @@
 						<h2>Choix du matériel embarqué</h2>
 					</section>
 				</section>
-				
+
 
 				<section>
 					<section>
@@ -145,61 +145,6 @@
 					<section>
 						<h1>Réalisation</h1>
 					</section>
-
-
-					<section>
-						<h2>Drone et android</h2>
-						<img src="images/drone-android.svg" />
-					</section>
-
-					<section>
-						<h2>Drone et android</h2>
-										<p>Création d'un <strong>réseau wifi</strong> à partir du mobile. </p>
-										<p>Configuration de l'<strong>adresse IP</strong> du drone depuis le smartphone.</p>
-					</section>
-
-					<section>
-						<h2>Architecture de l'application</h2>
-								<img src="images/schema-drone.svg" />
-					</section>
-
-										<section>
-											<h2>Connexion avec le drone</h2>
-													<p>1. Démarrage de la vidéo</p>
-													<pre><code data-trim class="c">
-{
-  type : "stream_state",
-  status : true
-}
-													</code></pre>
-													<p>2. Envoi d'un mouvement</p>
-													<pre><code data-trim class="c">
-{
-  type : "movement",
-  x : ‐10,
-  y : 10
-}
-													</code></pre>
-
-										</section>
-					<section>
-						<h2>Sensors</h2>
-									<p>Utilisation <strong>accéléromètre</strong> et <strong>magnétomètre</strong>.</p>
-								<img src="images/boussole.png" style="margin:2em" />
-					</section>
-					<section>
-						<h2>Spécificité du systeme Android</h2>
-								<ul>
-									<li>Gestion du <strong>cycle de vie</strong> d'une activity</li>
-									<li><strong>Démarrage</strong> d'une nouvelle activity</li>
-								</ul>
-					</section>
-					<section>
-						<h2>Zosterops <br> Hunter Shelter</h2>
-					<img src="images/launcher.png" style="margin:2em" />
-					</section>
-
-
 
 
 					<section>
@@ -435,6 +380,61 @@ rtph264depay ! avdec_h264 ! autovideosink
 							<span class="fragment" data-fragment-index="2" style="color:#6d9eeb;"> ... Cardboard</span>
 						</p>
 					</section>
+
+
+										<section>
+											<h2>Drone et android</h2>
+											<img src="images/drone-android.svg" />
+										</section>
+
+										<section>
+											<h2>Drone et android</h2>
+															<p>Création d'un <strong>réseau wifi</strong> à partir du mobile. </p>
+															<p>Configuration de l'<strong>adresse IP</strong> du drone depuis le smartphone.</p>
+										</section>
+
+										<section>
+											<h2>Architecture de l'application</h2>
+													<img src="images/schema-drone.svg" />
+										</section>
+
+															<section>
+																<h2>Connexion avec le drone</h2>
+																		<p>1. Démarrage de la vidéo</p>
+																		<pre><code data-trim class="c">
+{
+  type : "stream_state",
+  status : true
+}
+													</code></pre>
+													<p>2. Envoi d'un mouvement</p>
+													<pre><code data-trim class="c">
+{
+  type : "movement",
+  x : ‐10,
+  y : 10
+}
+																		</code></pre>
+
+															</section>
+										<section>
+											<h2>Sensors</h2>
+														<p>Utilisation <strong>accéléromètre</strong> et <strong>magnétomètre</strong>.</p>
+													<img src="images/boussole.png" style="margin:2em" />
+										</section>
+										<section>
+											<h2>Spécificité du systeme Android</h2>
+													<ul>
+														<li>Gestion du <strong>cycle de vie</strong> d'une activity</li>
+														<li><strong>Démarrage</strong> d'une nouvelle activity</li>
+													</ul>
+										</section>
+										<section>
+											<h2>Zosterops <br> Hunter Shelter</h2>
+										<img src="images/launcher.png" style="margin:2em" />
+										</section>
+
+
 
 				</section>
 
