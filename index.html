@@ -109,8 +109,8 @@
 
 					<section>
 						<h2>Drone et android</h2>
-										<p>Création d'un <strong>point d'accès</strong> à partir du mobile. </p>
-										<p>Configuration de l'<strong>adresse IP</strong> de drone depuis le smartphone.</p>
+										<p>Création d'un <strong>réseau wifi</strong> à partir du mobile. </p>
+										<p>Configuration de l'<strong>adresse IP</strong> du drone depuis le smartphone.</p>
 					</section>
 
 					<section>
@@ -120,27 +120,38 @@
 
 										<section>
 											<h2>Connexion avec le drone</h2>
-													<p>Ouverture d'une connexion <strong>TCP</strong></p>
-													<pre><code data-trim>
+													<p>1. Démarrage de la vidéo</p>
+													<pre><code data-trim class="c">
+{
+  type : "stream_state",
+  status : true
+}
+													</code></pre>
+													<p>2. Envoi d'un mouvement</p>
+													<pre><code data-trim class="c">
+{
+  type : "movement",
+  x : ‐10,
+  y : 10
+}
 													</code></pre>
 
 										</section>
 					<section>
-						<h2>Android</h2>
-								<ul>
-									<li>Ouverture d'une connexion <strong>TCP</strong></li>
-									<li>En écoute sur le <strong>HeadTransformer</strong></li>
-									<li>Calcul d'angles en degrés</li>
-								</ul>
-								<img src="images/axis_globe.png" style="margin:2em" />
+						<h2>Sensors</h2>
+									<p>Utilisation <strong>accéléromètre</strong> et <strong>magnétomètre</strong>.</p>
+								<img src="images/boussole.png" style="margin:2em" />
 					</section>
 					<section>
-						<h2>Problèmes rencontrés</h2>
+						<h2>Spécificité du systeme Android</h2>
 								<ul>
-									<li>Cycle de vie d'une activity</li>
-									<li>Démarrage d'une nouvelle activity</li>
+									<li>Gestion du <strong>cycle de vie</strong> d'une activity</li>
+									<li><strong>Démarrage</strong> d'une nouvelle activity</li>
 								</ul>
-								<img src="images/axis_globe.png" style="margin:2em" />
+					</section>
+					<section>
+						<h2>Zosterops <br> Hunter Shelter</h2>
+					<img src="images/launcher.png" style="margin:2em" />
 					</section>
 
 
@@ -274,7 +285,7 @@ rtph264depay ! avdec_h264 ! autovideosink
 
 					<section>
 						<h2>Google Cardboard</h2>
-						
+
 						<ul>
 							<li class="fragment">Utilisation de la Cardboard API</li>
 							<li class="fragment">Très récent</li>
@@ -318,7 +329,7 @@ rtph264depay ! avdec_h264 ! autovideosink
 
 					<section>
 						<h2>Mise en relation</h2>
-						
+
 						<p class="fragment"><code>SurfaceTexture</code> vs <code>SurfaceView</code></p>
 						<ul>
 							<li class="fragment">Les deux reposent sur une <code>Surface</code></li>
