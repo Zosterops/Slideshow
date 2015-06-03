@@ -125,8 +125,193 @@
 					</section>
 
 					<section>
-						<h2>Base Station</h2>
+						<h2>Base Station Vidéo</h2>
 						<img src="images/android_robot_logo.svg" height="30%" width="30%"/>
+					</section>
+
+					<section>
+						<h2>Base Station Vidéo</h2>
+						<ul>
+							<li>
+								Déroulement
+								<ul>
+									<li>Récupérer vidéo avec GStreamer</li>
+									<li>Donner le flux vidéo à Android</li>
+									<li>Afficher le flux sur le Cardboard</li>
+								</ul>
+							</li>
+						</ul>
+					</section>
+
+					<section>
+						<h2>GStreamer</h2>
+						<h4>Android & NDK</h4>
+					</section>
+
+					<section>
+						<h2>GStreamer - Basique</h2>
+						<ul>
+							<li>Système de Pipeline</li>
+							<li>Utilisation sur Android, et sur le système embarqué</li>
+						</ul>
+					</section>
+
+					<section>
+						<h2>GStreamer - Basique</h2>
+
+						<p style="text-align:left;">Drone :</p>
+						<pre><code data-trim>
+raspivid -t 0 -h 720 -w 1080 -fps 30 -b 2000000 -o - |
+gst-launch-1.0 -v fdsrc fd=0 !h264parse ! rtph264pay !
+udpsink host=192.168.43.93 port=5004
+						</code></pre>
+
+						<div class="fragment">
+							<p style="text-align:left;">Android :</p>
+						<pre><code data-trim>
+udpsrc port=5004 caps="application/x-rtp, media=video, clock-rate=90000, encoding-name=H264" !
+rtph264depay ! avdec_h264 ! autovideosink
+						</code></pre>
+						</div>
+					</section>
+
+					<section>
+						<h2>GStreamer - Android</h2>
+						<ul>
+							<li>Utilisation du <b>NDK</b> : programmation système sous Android</li>
+							<li>Abscence totale de documentation <b>NDK/GStreamer</b></li>
+						</ul>
+					</section>
+
+					<section>
+						<h2>GStreamer - Android</h2>
+						<ul>
+							<li>
+								Android (API) :
+								<ul>
+									<li>Création d'une <code>SurfaceView</code></li>
+									<li>Récupération d'une <code>Surface</code> depuis la <code>SurfaceView</code></li>
+									<li>Don de la <code>Surface</code> à GStreamer au travers du NDK</li>
+								</ul>
+							</li>
+							<li>
+								GStreamer (natif) :
+								<ul>
+									<li>Lancement du pipeline</li>
+									<li>Affectation de la &laquo;window&raquo; à la <code>Surface</code></li>
+								</ul>
+							</li>
+						</ul>
+					</section>
+
+					<section>
+						<h2>GStreamer - Android</h2>
+						<h4>It works ! Demo time ...</h4>
+					</section>
+
+					<section>
+						<h2>Google Cardboard</h2>
+						<h4>Android & OpenGL</h4>
+					</section>
+
+					<section>
+						<h2>Google Cardboard</h2>
+						<ul>
+							<li>Utilisation de la Cardboard API</li>
+							<li>Très récent</li>
+							<li>Très peu de documentation</li>
+							<li>Utilisation d'OpenGL</li>
+							<li>Séparation de l'écran : deux yeux</li>
+						</ul>
+					</section>
+
+					<section>
+						<h2>Google Cardboard</h2>
+						<ul>
+							<li>Déclaration d'une <code>SurfaceTexture</code></li>
+							<li>Don de la <code>SurfaceTexture</code> pour écrire dessus</li>
+							<li>A chaque nouvelle frame, appels de deux fonctions
+								<ul>
+									<li><code>onNewFrame()</code></li>
+									<li><code>onDrawEye()</code></li>
+								</ul>
+							</li>
+						</ul>
+					</section>
+
+					<section>
+						<h2>Google Cardboard</h2>
+						<ul>
+							<li><code>onNewFrame()</code>
+								<ul>
+									<li>Préparation de l'affichage</li>
+									<li>Similaire pour les deux yeux</li>
+								</ul>
+							</li>
+							<li><code>onDrawEye()</code>
+								<ul>
+									<li>Appliquer effet de distortion de l'image</li>
+									<li>Différent pour chaque oeil</li>
+								</ul>
+							</li>
+						</ul>
+					</section>
+
+					<section>
+						<h2>Google Cardboard</h2>
+						<h4>It works ! Demo time ...</h4>
+						<small>En utilisant la camera comme entrée de la <code>SurfaceTexture</code></small>
+					</section>
+
+					<section>
+						<h2>Mise en relation</h2>
+						<h4>Les difficultés surviennent ...</h4>
+					</section>
+
+					<section>
+						<h2>Mise en relation</h2>
+						<p><code>SurfaceTexture</code> vs <code>SurfaceView</code></p>
+						<ul>
+							<li>Repose sur une <code>Surface</code></li>
+							<li>
+								<code>SurfaceTexture</code>
+								<ul>
+									<li>Affiche les données sur une <code>Surface</code> OpenGL</li>
+								</ul>
+							</li>
+							<li>
+								<code>SurfaceView</code>
+								<ul>
+									<li>Vue Android</li>
+									<li>Laisse dessiner sur une <code>Surface</code></li>
+								</ul>
+							</li>
+						</ul>
+					</section>
+
+					<section>
+						<h2>Mise en relation</h2>
+						<ul>
+							<li>Cardboard : obligation d'utiliser une <code>SurfaceTexture</code></li>
+							<li>GStreamer : écrit sur une <code>Surface</code></li>
+						</ul>
+
+						<p>Récupérer la <code>Surface</code> depuis une <code>SurfaceTexture</code> et la donner à GStreamer</p>
+					</section>
+
+					<section>
+						<h2>Mise en relation</h2>
+						<h4>It doesn't works !</h4>
+						<p>Pas d'affichage, bien que la manipulation de la <code>Texture</code> se fasse ...</p>
+					</section>
+
+					<section>
+						<h2>Au final...</h2>
+						<p>
+							<span class="fragment" data-fragment-index="1" style="color:#39c0ba;">GStreamer ... </span>
+							<span class="fragment" data-fragment-index="3" style="color:red;">??????????????</span>
+							<span class="fragment" data-fragment-index="2" style="color:#6d9eeb;"> ... Cardboard</span>
+						</p>
 					</section>
 
 				</section>
