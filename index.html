@@ -150,6 +150,42 @@
 					</section>
 
 					<section>
+						<h2>Servo Server</h2>
+						<ul>
+							<li class="fragment"><code>ServoServerHandler</code> : parse le JSON envoyé par le client</li>
+							<li class="fragment">Effectue les actions à l'aide du :
+								<ul>
+									<li class="fragment"><code>ServoManager</code> : manipule les servos moteurs à l'aide de RPIO</li>
+									<li class="fragment"><code>CameraManager</code> : lance le flux vidéo</li>
+								</ul>
+							</li>
+						</ul>
+					</section>
+
+					<section>
+						<h2>Servo Server</h2>
+						<h4>Servo Manager</h4>
+
+						<pre class="fragment"><code data-trim class="python">
+def move(self, angle):
+    angle = -89 if angle <= -90 else angle # remove out of bound angles
+    angle = 90 if angle > 90 else angle
+    self.set_dutycycle(self.get_duty_cycle(angle))
+						</code></pre>
+
+						<pre class="fragment"><code data-trim class="python">
+def get_duty_cycle(self, angle):
+    angle += 90 # between -89 and 90.
+    return angle * self.angle_180 / 180
+						</code></pre>
+
+						<pre class="fragment"><code data-trim class="python">
+def set_dutycycle(self, dutycyle):
+    self.servo.set_servo(self.gpio, dutycyle)
+						</code></pre>
+					</section>
+
+					<section>
 						<h2>Base Station Vidéo</h2>
 						<img src="images/android_robot_logo.svg" height="30%" width="30%"/>
 					</section>
