@@ -117,6 +117,51 @@
 						<h1>Réalisation</h1>
 					</section>
 
+
+					<section>
+						<h2>Drone et android</h2>
+						<img src="images/drone-android.svg" />
+					</section>
+
+					<section>
+						<h2>Drone et android</h2>
+										<p>Création d'un <strong>point d'accès</strong> à partir du mobile. </p>
+										<p>Configuration de l'<strong>adresse IP</strong> de drone depuis le smartphone.</p>
+					</section>
+
+					<section>
+						<h2>Architecture de l'application</h2>
+								<img src="images/schema-drone.svg" />
+					</section>
+
+										<section>
+											<h2>Connexion avec le drone</h2>
+													<p>Ouverture d'une connexion <strong>TCP</strong></p>
+													<pre><code data-trim>
+													</code></pre>
+
+										</section>
+					<section>
+						<h2>Android</h2>
+								<ul>
+									<li>Ouverture d'une connexion <strong>TCP</strong></li>
+									<li>En écoute sur le <strong>HeadTransformer</strong></li>
+									<li>Calcul d'angles en degrés</li>
+								</ul>
+								<img src="images/axis_globe.png" style="margin:2em" />
+					</section>
+					<section>
+						<h2>Problèmes rencontrés</h2>
+								<ul>
+									<li>Cycle de vie d'une activity</li>
+									<li>Démarrage d'une nouvelle activity</li>
+								</ul>
+								<img src="images/axis_globe.png" style="margin:2em" />
+					</section>
+
+
+
+
 					<section>
 						<h2>Servo Server</h2>
 						<img class="fragment" src="images/python-logo-inkscape.svg" />
@@ -141,8 +186,195 @@
 					</section>
 
 					<section>
-						<h2>Base Station</h2>
+						<h2>Servo Server</h2>
+						<ul>
+							<li class="fragment"><code>ServoServerHandler</code> : parse le JSON envoyé par le client</li>
+							<li class="fragment">Effectue les actions à l'aide du :
+								<ul>
+									<li class="fragment"><code>ServoManager</code> : manipule les servos moteurs à l'aide de RPIO</li>
+									<li class="fragment"><code>CameraManager</code> : lance le flux vidéo</li>
+								</ul>
+							</li>
+						</ul>
+					</section>
+
+					<section>
+						<h2>Servo Server</h2>
+						<h4>Servo Manager</h4>
+
+						<pre class="fragment"><code data-trim class="python">
+def move(self, angle):
+    angle = -89 if angle <= -90 else angle # remove out of bound angles
+    angle = 90 if angle > 90 else angle
+    self.set_dutycycle(self.get_duty_cycle(angle))
+						</code></pre>
+
+						<pre class="fragment"><code data-trim class="python">
+def get_duty_cycle(self, angle):
+    angle += 90 # between -89 and 90.
+    return angle * self.angle_180 / 180
+						</code></pre>
+
+						<pre class="fragment"><code data-trim class="python">
+def set_dutycycle(self, dutycyle):
+    self.servo.set_servo(self.gpio, dutycyle)
+						</code></pre>
+					</section>
+
+					<section>
+						<h2>Base Station Vidéo</h2>
 						<img src="images/android_robot_logo.svg" height="30%" width="30%"/>
+						<br/>
+						<ul class="fragment">
+							<li>
+								Déroulement
+								<ul>
+									<li>Récupérer vidéo avec GStreamer</li>
+									<li>Donner le flux vidéo à Android</li>
+									<li>Afficher le flux sur le Cardboard</li>
+								</ul>
+							</li>
+						</ul>
+
+					</section>
+
+					<section>
+						<h2>GStreamer</h2>
+						<p class="fragment" style="text-align:left;">Système de pipeline</p>
+
+						<div class="fragment">
+						<p style="text-align:left;">Drone :</p>
+						<pre><code class="nohighlight" data-trim>
+raspivid -t 0 -h 720 -w 1080 -fps 30 -b 2000000 -o - |
+gst-launch-1.0 -v fdsrc fd=0 ! h264parse ! rtph264pay !
+udpsink host=192.168.43.93 port=5004</code></pre>
+
+						<div class="fragment">
+						<p style="text-align:left;">Android :</p>
+						<pre><code class="nohighlight" data-trim>
+udpsrc port=5004 caps="application/x-rtp, media=video,
+	clock-rate=90000, encoding-name=H264" !
+rtph264depay ! avdec_h264 ! autovideosink
+						</code></pre>
+						</div>
+
+					</section>
+
+					<section>
+						<h2>GStreamer - Android</h2>
+						<ul>
+							<li class="fragment">Utilisation du <b>NDK</b> </li>
+							<li class="fragment">Abscence totale de documentation <b>NDK/GStreamer</b></li>
+							<li class="fragment">
+								Android (API) :
+								<ul>
+									<li>Création d'une <code>SurfaceView</code></li>
+									<li>Récupération d'une <code>Surface</code> depuis la <code>SurfaceView</code></li>
+									<li>Don de la <code>Surface</code> à GStreamer au travers du NDK</li>
+								</ul>
+							</li>
+							<li class="fragment">
+								GStreamer (natif) :
+								<ul>
+									<li>Lancement du pipeline</li>
+									<li>Affectation de la &laquo;window&raquo; à la <code>Surface</code></li>
+								</ul>
+							</li>
+						</ul>
+					</section>
+
+					<section>
+						<h2>It works ! Demo time ...</h2>
+					</section>
+
+					<section>
+						<h2>Google Cardboard</h2>
+						
+						<ul>
+							<li class="fragment">Utilisation de la Cardboard API</li>
+							<li class="fragment">Très récent</li>
+							<li class="fragment">Très peu de documentation</li>
+							<li class="fragment">Utilisation d'OpenGL</li>
+							<li class="fragment">Séparation de l'écran : deux yeux</li>
+						</ul>
+
+					</section>
+
+					<section>
+						<h2>Google Cardboard</h2>
+						<ul>
+							<li class="fragment">Déclaration d'une <code>SurfaceTexture</code></li>
+							<li class="fragment">Don de la <code>SurfaceTexture</code> pour écrire dessus</li>
+							<li class="fragment">A chaque nouvelle frame, appels de deux fonctions
+								<ul>
+									<li class="fragment">
+										<code>onNewFrame()</code>
+										<ul>
+											<li>Préparation de l'affichage</li>
+											<li>Similaire pour les deux yeux</li>
+										</ul>
+									</li>
+									<li class="fragment">
+										<code>onDrawEye()</code>
+										<ul>
+											<li>Appliquer effet de distortion de l'image</li>
+											<li>Différent pour chaque oeil</li>
+										</ul>
+									</li>
+								</ul>
+							</li>
+						</ul>
+					</section>
+
+
+					<section>
+						<h2>It works ! Demo time ...</h2>
+					</section>
+
+					<section>
+						<h2>Mise en relation</h2>
+						
+						<p class="fragment"><code>SurfaceTexture</code> vs <code>SurfaceView</code></p>
+						<ul>
+							<li class="fragment">Les deux reposent sur une <code>Surface</code></li>
+							<li class="fragment">
+								<code>SurfaceTexture</code>
+								<ul>
+									<li>Affiche les données sur une <code>Surface</code> OpenGL</li>
+								</ul>
+							</li>
+							<li class="fragment">
+								<code>SurfaceView</code>
+								<ul>
+									<li>Vue Android</li>
+									<li>Laisse dessiner sur une <code>Surface</code></li>
+								</ul>
+							</li>
+						</ul>
+
+					</section>
+
+					<section>
+						<h2>Mise en relation</h2>
+						<ul>
+							<li>Cardboard : obligation d'utiliser une <code>SurfaceTexture</code></li>
+							<li class="fragment">GStreamer : écrit sur une <code>Surface</code></li>
+						</ul>
+
+						<p class="fragment">Récupérer la <code>Surface</code> depuis une <code>SurfaceTexture</code> et la donner à GStreamer</p>
+					</section>
+
+					<section>
+						<h2>Demo ti... ERG ... <br/>It doesn't works !<h2>
+					</section>
+
+					<section>
+						<h2>Au final...</h2>
+						<p>
+							<span class="fragment" data-fragment-index="1" style="color:#39c0ba;">GStreamer ... </span>
+							<span class="fragment" data-fragment-index="3" style="color:red;">??????????????</span>
+							<span class="fragment" data-fragment-index="2" style="color:#6d9eeb;"> ... Cardboard</span>
+						</p>
 					</section>
 
 				</section>
