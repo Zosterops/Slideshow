@@ -52,25 +52,70 @@
 
 			<!-- Any section element inside of this container is displayed as a slide -->
 			<div class="slides">
-				<section style="text-align: left;">
-					<h1>Vision 3D panoramique</h1>
+				<section>
+					<section style="text-align: left;">
+					<img align="right" src="images/oizo.png" height="35%" width="35%"/>
+					<h2>Vision panoramique dans les airs</h2>
 					<h3></h3>
 					<p>
 						<small>David LIVET - Jérémie BOUTOILLE - Hugo DJEMAA - Mickael GOUBIN</small><br>
 						<small>Juin 2015</small>
 					</p>
-				</section>
+					</section>
 
+					<section>
+						<h2>Plan</h2>
+
+						<ol>
+							<li>Le projet et son organisation</li>
+							<li>Choix</li>
+							<li>Réalisation</li>
+						</ol>
+					</section>
+				</section>
 				<section>
-					<h2>Plan</h2>
+					<section>
+						<h1>Le projet et son organisation</h1>
+					</section>
+					<section>
+						<h1>Immersion totale</h1>
+						
+						<p>Donner l'impression à un utilisateur d'être dans un environnement distant</p>
+					</section>
+					<section>
+						<h2>Le drone</h2>
+						<img src="images/paramodel.png" height="60%" width="60%"/>
+					</section>
+					<section>
+						<h2>Mais aussi</h2>
+						<img src="images/concert.png" align="left" class="fragment" height="20%" width="20%"/>
+						<img src="images/stade.png" align="center" class="fragment" height="20%" width="20%"/>
+						<img src="images/jungle.png" align="right" class="fragment" height="20%" width="20%"/>
+					</section>
+					<section>
+						<h1>Le système</h1>
+						<ul>
+							<li class="fragment">Un dispositif proche de l'User</li>
+							<li class="fragment">Embarqué au coeur de l'action</li>
+							<li class="fragment">Une connexion les reliant</li>
+						</ul>
 
-					<ol>
-						<li>Le projet et son organisation</li>
-						<li>Conception</li>
-						<li>Réalisation</li>
-					</ol>
-
+					</section>
+					<section>
+						<h2>La connexion</h2>
+						<img src="images/wifi.png" align="left" height="30%" width="30%"/>
+						<br>
+						<ul>
+							<li>Excellent débit</li>
+							<li>Stable</li>
+							<li>Autonome</li>
+						</ul>
+					</section>
+					<section>
+						<h2>Choix du matériel embarqué</h2>
+					</section>
 				</section>
+				
 
 				<section>
 					<section>
@@ -201,7 +246,8 @@
 def move(self, angle):
     angle = -89 if angle <= -90 else angle # remove out of bound angles
     angle = 90 if angle > 90 else angle
-    self.set_dutycycle(self.get_duty_cycle(angle))
+    cycle = self.get_duty_cycle(angle)
+    self.set_dutycycle()
 						</code></pre>
 
 						<pre class="fragment"><code data-trim class="python">
@@ -214,6 +260,24 @@ def get_duty_cycle(self, angle):
 def set_dutycycle(self, dutycyle):
     self.servo.set_servo(self.gpio, dutycyle)
 						</code></pre>
+					</section>
+
+					<section>
+						<h2>Servo Server</h2>
+						<h4>Camera Manager</h4>
+
+						<pre class="fragment"><code data-trim class="python">
+class CameraThread(threading.Thread):
+	def run(self):
+	    self.raspi_p = subprocess.Popen(
+	    	"raspivid -t 0 -h 720 -w 1080 -fps 30 -b 2000000 -o -".split(), stdout=subprocess.PIPE)
+	    cmd = "gst-launch-1.0 -v fdsrc fd=0 ! h264parse ! rtph264pay ! " +
+	    	  "udpsink host=%s port=5004" % self.ip
+	    self.gst_p = subprocess.Popen(cmd.split(), stdin=self.raspi_p.stdout)
+	    ret = self.raspi_p.wait()
+	    ret = self.gst_p.wait()
+						</code></pre>
+
 					</section>
 
 					<section>
@@ -239,17 +303,16 @@ def set_dutycycle(self, dutycyle):
 
 						<div class="fragment">
 						<p style="text-align:left;">Drone :</p>
-						<pre><code data-trim>
+						<pre><code class="nohighlight" data-trim>
 raspivid -t 0 -h 720 -w 1080 -fps 30 -b 2000000 -o - |
-gst-launch-1.0 -v fdsrc fd=0 !h264parse ! rtph264pay !
-udpsink host=192.168.43.93 port=5004
-						</code></pre>
-						</div>
+gst-launch-1.0 -v fdsrc fd=0 ! h264parse ! rtph264pay !
+udpsink host=192.168.43.93 port=5004</code></pre>
 
 						<div class="fragment">
 						<p style="text-align:left;">Android :</p>
-						<pre><code data-trim>
-udpsrc port=5004 caps="application/x-rtp, media=video, clock-rate=90000, encoding-name=H264" !
+						<pre><code class="nohighlight" data-trim>
+udpsrc port=5004 caps="application/x-rtp, media=video,
+	clock-rate=90000, encoding-name=H264" !
 rtph264depay ! avdec_h264 ! autovideosink
 						</code></pre>
 						</div>
