@@ -190,7 +190,8 @@
 def move(self, angle):
     angle = -89 if angle <= -90 else angle # remove out of bound angles
     angle = 90 if angle > 90 else angle
-    self.set_dutycycle(self.get_duty_cycle(angle))
+    cycle = self.get_duty_cycle(angle)
+    self.set_dutycycle()
 						</code></pre>
 
 						<pre class="fragment"><code data-trim class="python">
@@ -203,6 +204,24 @@ def get_duty_cycle(self, angle):
 def set_dutycycle(self, dutycyle):
     self.servo.set_servo(self.gpio, dutycyle)
 						</code></pre>
+					</section>
+
+					<section>
+						<h2>Servo Server</h2>
+						<h4>Camera Manager</h4>
+
+						<pre class="fragment"><code data-trim class="python">
+class CameraThread(threading.Thread):
+	def run(self):
+	    self.raspi_p = subprocess.Popen(
+	    	"raspivid -t 0 -h 720 -w 1080 -fps 30 -b 2000000 -o -".split(), stdout=subprocess.PIPE)
+	    cmd = "gst-launch-1.0 -v fdsrc fd=0 ! h264parse ! rtph264pay ! " +
+	    	  "udpsink host=%s port=5004" % self.ip
+	    self.gst_p = subprocess.Popen(cmd.split(), stdin=self.raspi_p.stdout)
+	    ret = self.raspi_p.wait()
+	    ret = self.gst_p.wait()
+						</code></pre>
+
 					</section>
 
 					<section>
